@@ -1,7 +1,8 @@
 #!/bin/bash
 
 sudo apt update -y >/dev/null 2&>/dev/null
-sudo apt install uuid docker -y >/dev/null 2&>/dev/null
+sudo apt install uuid -y >/dev/null 2&>/dev/null
+sudo apt install docker -y >/dev/null 2&>/dev/null
 
 sudo docker pull ghcr.io/xtls/xray-core:latest
 
