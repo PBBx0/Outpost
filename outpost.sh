@@ -281,6 +281,8 @@ services:
     network_mode: host
     volumes:
       - $APP_DIR/config:/usr/local/etc/xray:ro
-" > docker-compose.yml
+" > $APP_DIR/docker-compose.yml
 
-sudo docker compose up
+
+cd $APP_DIR
+sudo docker compose up -d

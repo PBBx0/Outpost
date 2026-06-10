@@ -22,4 +22,4 @@ services:
 " > $APP_DIR/docker-compose.yml
 
 cd $APP_DIR
-sudo docker compose up
+sudo docker compose up -d

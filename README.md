@@ -7,11 +7,15 @@ On creation it also writes client (or middleserver) outbounds' configs.
 
 ## Usage
 
-`sudo bash -c "$(curl -sL link)" @ NODE_NAME`
+```bash
+sudo bash -c "$(curl -sL https://raw.githubusercontent.com/PBBx0/Outpost/refs/heads/main/outpost.sh)" @ NODE_NAME
+```
 
 or
 
-`sudo ./outpost.sh NODE_NAME`
+```bash
+sudo ./outpost.sh NODE_NAME
+```
 
 ## Structure
 App directory is `/opt/outpost`. It contains the running core configuration as well as the client (or middleserver) outbounds' configs.
