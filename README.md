@@ -16,13 +16,13 @@ During setup, it also generates client (or middle-server) outbound configuration
 ### One-line installation
 
 ```bash
-sudo bash -c "$(curl -sL https://raw.githubusercontent.com/PBBx0/Outpost/refs/heads/main/outpost.sh)" @ NODE_NAME
+sudo bash -c "$(curl -sL https://raw.githubusercontent.com/PBBx0/Outpost/refs/heads/main/outpost.sh)" @ "NODE_NAME"
 ```
 
 ### Local script
 
 ```bash
-sudo ./outpost.sh NODE_NAME
+sudo ./outpost.sh "NODE_NAME"
 ```
 
 ## Control
@@ -37,7 +37,7 @@ sudo docker restart outpost
 
 ### `create_config.sh`
 
-Generates IDs and key pairs, writes them to `/config`, and generates client outbound configurations in a separate file.
+Generates IDs and key pairs, writes them to `/opt/outpost/config`, and generates client outbound configurations in a separate file.
 
 ### `setup.sh`
 
@@ -52,6 +52,7 @@ Equivalent to `setup.sh`, except the contents of `create_config.sh` are embedded
 ### `create_inbounds.sh`
 
 Generates IDs and key pairs and outputs inbound configurations only.
+The first argument sets `INBOUND_NAME`, defaulting to `Inbound name`.
 
 ## Structure
 

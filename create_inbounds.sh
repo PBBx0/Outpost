@@ -1,5 +1,12 @@
 #!/bin/bash
 
+if (( EUID != 0 )); then
+    echo "Run this script as root" >&2
+    exit 1
+fi
+
+INBOUND_NAME="${1:-Inbound name}"
+
 
 function set_parameters {
     port1=$(($RANDOM + 10000))
@@ -9,10 +16,10 @@ function set_parameters {
     short_id1=$(openssl rand -hex 8)
     short_id2=$(openssl rand -hex 8)
     
-    output="$(sudo docker exec -it outpost x25519)"
+    output="$(docker exec outpost /usr/local/bin/xray x25519)"
     privkey1=$(sed -n "s/^PrivateKey: //p" <<< "$output" | tr -d '\r')
     pubkey1=$(sed -n "s/^Password (PublicKey): //p" <<< "$output" | tr -d '\r')
-    output="$(sudo docker exec -it outpost x25519)"
+    output="$(docker exec outpost /usr/local/bin/xray x25519)"
     privkey2=$(sed -n "s/^PrivateKey: //p" <<< "$output" | tr -d '\r')
     pubkey2=$(sed -n "s/^Password (PublicKey): //p" <<< "$output" | tr -d '\r')
 }
@@ -94,11 +101,6 @@ function create_inbounds {
     "
 }
 
-
-INBOUND_NAME=$1
-if [ -z "$INBOUND_NAME" ]; then
- INBOUND_NAME="INBOUND_NAME"
-fi
 
 set_parameters
 create_inbounds

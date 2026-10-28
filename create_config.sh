@@ -1,17 +1,15 @@
 #!/bin/bash
 
+if (( EUID != 0 )); then
+    echo "Run this script as root" >&2
+    exit 1
+fi
 
 APP_DIR="/opt/outpost"
+NODE_NAME="${1:-NODE_NAME}"
 
-if [ -z "$NODE_NAME" ]; then
-    NODE_NAME="$1"
-fi
-
-if [ -z "$NODE_NAME" ]; then
-    NODE_NAME="Node Name"
-fi
-
-mkdir -p $APP_DIR/config && cd $APP_DIR
+mkdir -p "$APP_DIR/config"
+cd "$APP_DIR"
 
 
 function set_parameters {
@@ -22,10 +20,10 @@ function set_parameters {
     short_id1=$(openssl rand -hex 8)
     short_id2=$(openssl rand -hex 8)
     
-    output="$(sudo docker run --rm ghcr.io/xtls/xray-core:latest x25519)"
+    output="$(docker run --rm ghcr.io/xtls/xray-core:latest x25519)"
     privkey1=$(sed -n "s/^PrivateKey: //p" <<< "$output" | tr -d '\r')
     pubkey1=$(sed -n "s/^Password (PublicKey): //p" <<< "$output" | tr -d '\r')
-    output="$(sudo docker run --rm ghcr.io/xtls/xray-core:latest x25519)"
+    output="$(docker run --rm ghcr.io/xtls/xray-core:latest x25519)"
     privkey2=$(sed -n "s/^PrivateKey: //p" <<< "$output" | tr -d '\r')
     pubkey2=$(sed -n "s/^Password (PublicKey): //p" <<< "$output" | tr -d '\r')
 
