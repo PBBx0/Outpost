@@ -6,7 +6,7 @@ if (( EUID != 0 )); then
 fi
 
 apt update -y >/dev/null 2>/dev/null
-apt install uuid docker -y >/dev/null 2>/dev/null
+apt install uuid openssl ca-certificates docker.io docker-compose-v2 -y >/dev/null 2>/dev/null
 
 docker pull ghcr.io/xtls/xray-core:latest
 
@@ -28,4 +28,4 @@ services:
 " > "$APP_DIR/docker-compose.yml"
 
 cd "$APP_DIR"
-docker compose up -d
+docker compose up -d --force-recreate
